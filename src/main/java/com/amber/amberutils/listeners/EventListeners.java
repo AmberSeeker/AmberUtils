@@ -32,7 +32,7 @@ public class EventListeners {
     //Check for Empty Pokeball or Pokemon thrown on a wild Pokemon
     @SubscribeEvent
     public void onPokeballImpact(PokeballImpactEvent e) {
-        if (!noSpaceEnabled) {
+        if (noSpaceEnabled) {
             return; // Skip if 'no space' behavior is disabled
         }
         if (!(e.getEntityHit() instanceof EntityPixelmon))
@@ -53,7 +53,7 @@ public class EventListeners {
     //Check for aggressive pokemon
     @SubscribeEvent
     public void onWildAggression(AggressionEvent e) {
-        if (!noSpaceEnabled) {
+        if (noSpaceEnabled) {
             return; // Skip if 'no space' behavior is disabled
         }
         if (!(e.aggressor instanceof EntityPixelmon))
@@ -73,7 +73,7 @@ public class EventListeners {
     //Check for battles with Wild Pokemon in general
     @SubscribeEvent
     public void onBattleStarted(BattleStartedEvent e) {
-        if (!noSpaceEnabled) {
+        if (noSpaceEnabled) {
             return; // Skip if 'no space' behavior is disabled
         }
         BattleParticipant p1 = e.participant1[0];
@@ -95,7 +95,7 @@ public class EventListeners {
     //Check for player trying to join a raid
     @SubscribeEvent
     public void onRaidJoin(JoinRaidEvent e) {
-        if (!noSpaceEnabled) {
+        if (noSpaceEnabled) {
             return; // Skip if 'no space' behavior is disabled
         }
         EntityPlayerMP player = (EntityPlayerMP)e.getPlayer();

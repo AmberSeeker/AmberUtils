@@ -2,6 +2,7 @@ package com.amber.amberutils;
 
 import com.amber.amberutils.commands.Commands;
 import com.amber.amberutils.listeners.EventListeners;
+import com.amber.amberutils.sql_db.DatabaseManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
@@ -12,12 +13,13 @@ import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
+import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import net.minecraft.command.CommandBase;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import org.spongepowered.api.command.spec.CommandSpec;
 
 
-@Plugin(id = "amberutils", name = "AmberUtils", version = "0.0.1", description = "Utility stuff for pixelmon", dependencies = {@Dependency(id = "pixelmon")})
+@Plugin(id = PluginInfo.ID, name = PluginInfo.NAME, version = PluginInfo.VERSION, description = PluginInfo.DESCR, dependencies = {@Dependency(id = "pixelmon")})
 public class AmberUtils {
     @Inject
     private Game game;
@@ -37,7 +39,8 @@ public class AmberUtils {
 
     @Listener
     public void onInitialization(GameInitializationEvent event) {
-        logger.info("AmberUtils is starting!");
+        this.logger.info("AmberUtils is starting!");
+        DatabaseManager.loadPlayerData();
         CommandSpec uCommandSpec = Commands.buildSpec();
         Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
     }
@@ -48,4 +51,10 @@ public class AmberUtils {
     this.logger.info("AmberUtils is now active!");
     Pixelmon.EVENT_BUS.register(new EventListeners());
     }
+
+    @Listener
+    public void onServerStop(GameStoppingServerEvent event) {
+    this.logger.info("AmberUtils is saving Data and shutting down! Bye!");
+    DatabaseManager.savePlayerData();
+}
 }
