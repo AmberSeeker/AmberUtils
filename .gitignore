@@ -9,6 +9,7 @@ build
 libs
 run
 changelog.txt
+.vscode
 
 # Ignore Gradle GUI config
 gradle-app.setting
