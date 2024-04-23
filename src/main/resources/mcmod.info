@@ -1,21 +1,20 @@
-{
-  "modid": "amberutils",
-  "name": "AmberUtils",
-  "description": "Utilities for Pixelmon 8.4.3 and Minecraft 1.12.2 on SpongeForge",
-  "version": "0.0.1-alpha",
-  "mcversion": "1.12.2",
-  "url": "https://github.com/AmberSeeker/AmberUtils/",
-  "updateUrl": "https://github.com/AmberSeeker/AmberUtils/releases",
-  "authorList": ["AmberSeeker"],
-  "credits": "Credits go to my staff team for coming up with some brilliant ideas.",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": [
-    "spongeapi@7.4.0",
-    "pixelmon@8.4.3"
-  ],
-  "requiredMods": [
-    "spongeapi@7.4.0",
-    "pixelmon@8.4.3"
-  ]
-}
+[
+    {
+        "modid": "amberutils",
+        "name": "AmberUtils",
+        "version": "0.0.1-alpha",
+        "description": "Utilities for Pixelmon 8.4.3 and Minecraft 1.12.2 on SpongeForge",
+        "url": "https://github.com/AmberSeeker/AmberUtils/",
+        "authorList": [
+            "AmberSeeker"
+        ],
+        "requiredMods": [
+            "spongeapi@7.4.0",
+            "pixelmon@8.4.3"
+        ],
+        "dependencies": [
+            "spongeapi@7.4.0",
+            "pixelmon@8.4.3"
+        ]
+    }
+]
