@@ -1,9 +1,12 @@
 package com.amber.amberutils;
 
+import com.amber.amberutils.commands.Commands;
+import com.amber.amberutils.listeners.EventListeners;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import org.spongepowered.api.Game;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.event.Listener;
@@ -11,6 +14,7 @@ import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import net.minecraft.command.CommandBase;
 import com.pixelmonmod.pixelmon.Pixelmon;
+import org.spongepowered.api.command.spec.CommandSpec;
 
 
 @Plugin(id = "amberutils", name = "AmberUtils", version = "0.0.1", description = "Utility stuff for pixelmon", dependencies = {@Dependency(id = "pixelmon")})
@@ -34,6 +38,8 @@ public class AmberUtils {
     @Listener
     public void onInitialization(GameInitializationEvent event) {
         logger.info("AmberUtils is starting!");
+        CommandSpec uCommandSpec = Commands.buildSpec();
+        Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
     }
     
     @Listener
