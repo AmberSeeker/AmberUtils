@@ -21,14 +21,12 @@ import org.spongepowered.api.entity.living.player.Player;
 public class DatabaseManager {
 
     private static final Logger logger = AmberUtils.logger;
-    private static final String DB_URL = PluginInfo.DB_URL;
-    private static final String DB_USER = PluginInfo.DB_USER;
-    private static final String DB_PASSWORD = PluginInfo.DB_PASSWORD;
+
     public static final Map<UUID, Boolean> noSpaceToggles = AmberUtils.noSpaceToggles;
     
     public static void loadPlayerData(CommandSource source) {
         logger.info("Loading player data...");
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection conn = DriverManager.getConnection(SQLConfig.DB_URL, SQLConfig.DB_USER, SQLConfig.DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement("SELECT player_uuid, no_space_toggle FROM player_settings")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -55,7 +53,7 @@ public class DatabaseManager {
     
     public static void savePlayerData(CommandSource source) {
         logger.info("Saving player data...");
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        try (Connection conn = DriverManager.getConnection(SQLConfig.DB_URL, SQLConfig.DB_USER, SQLConfig.DB_PASSWORD)) {
             for (Map.Entry<UUID, Boolean> entry : noSpaceToggles.entrySet()) {
                 UUID playerId = entry.getKey();
                 boolean noSpaceToggle = entry.getValue();
