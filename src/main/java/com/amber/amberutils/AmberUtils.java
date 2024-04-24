@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import java.util.Map;
 import java.util.UUID;
 import java.util.HashMap;
+import com.pixelmonmod.pixelmon.Pixelmon;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.plugin.Plugin;
@@ -19,12 +20,11 @@ import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
-import net.minecraft.command.CommandBase;
-import com.pixelmonmod.pixelmon.Pixelmon;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
+import net.minecraft.command.CommandBase;
 
 @Plugin(id = PluginInfo.ID, name = PluginInfo.NAME, version = PluginInfo.VERSION, description = PluginInfo.DESCR, dependencies = {@Dependency(id = "pixelmon")})
 public class AmberUtils {
