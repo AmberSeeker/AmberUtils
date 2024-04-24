@@ -3,6 +3,7 @@ package com.amber.amberutils;
 import com.amber.amberutils.commands.Commands;
 import com.amber.amberutils.listeners.EventListeners;
 import com.amber.amberutils.sql_db.DatabaseManager;
+import com.amber.amberutils.sql_db.SQLConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
@@ -24,7 +25,6 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
-import net.minecraft.command.CommandBase;
 
 @Plugin(id = PluginInfo.ID, name = PluginInfo.NAME, version = PluginInfo.VERSION, description = PluginInfo.DESCR, dependencies = {@Dependency(id = "pixelmon")})
 public class AmberUtils {
@@ -48,10 +48,15 @@ public class AmberUtils {
 
     @Listener
     public void onInitialization(GameInitializationEvent event) {
-        this.logger.info("AmberUtils is starting!");
-        DatabaseManager.loadPlayerData(Sponge.getServer().getConsole());
-        CommandSpec uCommandSpec = Commands.buildSpec();
-        Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
+        this.logger.info("AmberUtils is starting...");
+        try {
+            SQLConfig.readSQLConfig();
+            DatabaseManager.loadPlayerData(Sponge.getServer().getConsole());
+            CommandSpec uCommandSpec = Commands.buildSpec();
+            Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
+        } catch (Exception e) {
+            logger.error("An error occurred during initialization:", e);
+        }
     }
     
     @Listener
@@ -65,18 +70,27 @@ public class AmberUtils {
     public void reload(GameReloadEvent event) {
         CommandSource source = event.getCause().first(CommandSource.class).orElse(null);
         if (source instanceof Player) {
-            logger.info("§aReloading AmberUtils...");
+            logger.info("Reloading AmberUtils...");
             source.sendMessage(Text.of(TextColors.GREEN, "Reloading AmberUtils..."));
         } else {
-            logger.info("§aReloading AmberUtils...");
+            logger.info("Reloading AmberUtils...");
         }
-        DatabaseManager.savePlayerData(source);
-        DatabaseManager.loadPlayerData(source);
+        try {
+            SQLConfig.readSQLConfig();
+            DatabaseManager.savePlayerData(source);
+            DatabaseManager.loadPlayerData(source);
+        } catch (Exception e) {
+            logger.error("An error occurred during reload:", e);
+        }
     }
 
     @Listener
     public void onServerStop(GameStoppingServerEvent event) {
         this.logger.info("AmberUtils is saving Data and Shutting Down! Bye!");
-        DatabaseManager.savePlayerData(Sponge.getServer().getConsole());
+        try {
+            DatabaseManager.savePlayerData(Sponge.getServer().getConsole());
+        } catch (Exception e) {
+            logger.error("An error occurred during server stop:", e);
+        }
     }
 }
