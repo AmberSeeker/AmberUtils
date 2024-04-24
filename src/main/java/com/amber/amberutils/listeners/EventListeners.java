@@ -1,7 +1,6 @@
 package com.amber.amberutils.listeners;
 
-import java.util.UUID;
-import com.amber.amberutils.commands.Commands;
+import com.amber.amberutils.helpers.GeneralHelpers;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.events.PokeballImpactEvent;
 import com.pixelmonmod.pixelmon.api.events.AggressionEvent;
@@ -11,8 +10,6 @@ import com.pixelmonmod.pixelmon.battles.controller.participants.BattleParticipan
 import com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant;
 import com.pixelmonmod.pixelmon.battles.controller.participants.WildPixelmonParticipant;
 import com.pixelmonmod.pixelmon.entities.pixelmon.EntityPixelmon;
-import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
-import com.pixelmonmod.pixelmon.api.storage.PCStorage;
 import com.pixelmonmod.pixelmon.config.PixelmonConfig;
 import com.pixelmonmod.pixelmon.comm.CommandChatHandler;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -32,7 +29,7 @@ public class EventListeners {
         if (pokemon.isBossPokemon() || pokemon.hasOwner())
             return;
         EntityPlayerMP player = (EntityPlayerMP)e.pokeball.getThrower();
-        if (playerCheck(player)) {
+        if (GeneralHelpers.playerCheck(player)) {
             e.setCanceled(true);
             CommandChatHandler.sendFormattedChat(player, TextFormatting.RED, "You have no space in your Party or PC! Can't engage!");
         }
@@ -50,7 +47,7 @@ public class EventListeners {
             return;
 
         EntityPlayerMP player = (EntityPlayerMP)e.player;
-        if (playerCheck(player)) {
+        if (GeneralHelpers.playerCheck(player)) {
             e.setCanceled(true);
         }
     }
@@ -69,7 +66,7 @@ public class EventListeners {
             EntityPixelmon pokemon = (EntityPixelmon)pokeparticipant.getEntity();
             if (pokemon.isBossPokemon())
             return;
-            if (playerCheck(player)) {
+            if (GeneralHelpers.playerCheck(player)) {
                 e.setCanceled(true);
                 CommandChatHandler.sendFormattedChat(player, TextFormatting.RED, "You have no space in your Party or PC! Can't engage!");
             } 
@@ -80,19 +77,10 @@ public class EventListeners {
     @SubscribeEvent
     public void onRaidJoin(JoinRaidEvent e) {
         EntityPlayerMP player = (EntityPlayerMP)e.getPlayer();
-        if (playerCheck(player)) {
+        if (GeneralHelpers.playerCheck(player)) {
             e.setCanceled(true);
             CommandChatHandler.sendFormattedChat(player, TextFormatting.RED, "You can't join the raid as you have no space in your Party or PC!");
         }
     }
 
-    public boolean playerCheck(EntityPlayerMP player) {
-        if (!Commands.getNoSpaceToggle(player.getUniqueID())) {
-        PlayerPartyStorage ptStorage = Pixelmon.storageManager.getParty(player);
-        PCStorage pcStorage = Pixelmon.storageManager.getPCForPlayer(player);
-        if (ptStorage.countAll() == 6 && pcStorage.countAll() == PixelmonConfig.computerBoxes * 30)
-            return true;
-        }
-        return false;
-    }
 }
