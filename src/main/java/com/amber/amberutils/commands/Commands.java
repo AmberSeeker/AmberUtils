@@ -1,27 +1,23 @@
 package com.amber.amberutils.commands;
 
+import com.amber.amberutils.PluginInfo;
 import com.amber.amberutils.AmberUtils;
 import com.amber.amberutils.listeners.EventListeners;
 import com.amber.amberutils.sql_db.DatabaseManager;
+import com.amber.amberutils.sql_db.SQLConfig;
+import com.amber.amberutils.helpers.GeneralHelpers;
 import com.amber.amberutils.helpers.ToggleHelper;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import org.slf4j.Logger;
 
 public class Commands implements CommandExecutor {
@@ -32,16 +28,15 @@ public class Commands implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) {
-        src.sendMessage(Text.of(TextColors.GREEN, "AmberUtils-1.12.2-0.0.1-alpha"));
+        src.sendMessage(Text.of(TextColors.GREEN, PluginInfo.NAME + "-" + PluginInfo.MC_VERSION + "-" + PluginInfo.VERSION));
         src.sendMessage(Text.of(TextColors.GREEN, "Usage: /amberutils <subcommand|help|?>"));
-        // Add more information as needed
         return CommandResult.success();
     }
 
     public static CommandSpec buildSpec() {
         return CommandSpec.builder()
             .description(Text.of("Displays information about AmberUtils plugin"))
-            .permission("amberutils.command.info") // Optional: Add permission node
+            .permission("amberutils.command.base") // Optional: Add permission node
             .executor(new Commands())
             .child(buildNoSpaceSpec(), "nospace")
             .child(buildHelpSpec(), "help", "?")
@@ -60,8 +55,8 @@ public class Commands implements CommandExecutor {
                 }
                 Player player = (Player) src;
                 UUID playerId = player.getUniqueId();
-                boolean newValue = !getNoSpaceToggle(playerId);
-                setNoSpaceToggle(playerId, newValue);
+                boolean newValue = !GeneralHelpers.getNoSpaceToggle(playerId);
+                GeneralHelpers.setNoSpaceToggle(playerId, newValue);
                 src.sendMessage(Text.of(TextColors.GOLD, "Battle regardless of Space has been set to: " + newValue));
                 return CommandResult.success();
             })
@@ -70,6 +65,7 @@ public class Commands implements CommandExecutor {
 
     //The helper for no_space
     private static ToggleHelper noSpaceToggle = ToggleHelper.noSpaceToggle;
+
     private static CommandSpec buildHelpSpec() {
         noSpaceToggle.setValue(null);
         return CommandSpec.builder()
@@ -101,18 +97,11 @@ public class Commands implements CommandExecutor {
                 } else {
                     logger.info("§aReloading AmberUtils...");
                 }
+                SQLConfig.readSQLConfig();
                 DatabaseManager.savePlayerData(src);
                 DatabaseManager.loadPlayerData(src);
                 return CommandResult.success();
             })
             .build();
         }
-
-    public static boolean getNoSpaceToggle(UUID playerId) {
-        return noSpaceToggles.getOrDefault(playerId, false);
-    }
-    
-    private static void setNoSpaceToggle(UUID playerId, boolean value) {
-        noSpaceToggles.put(playerId, value);
-    }
 }
