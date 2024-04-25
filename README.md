@@ -3,4 +3,5 @@ Adds utility tools and stuff for Pixelmon and Mincraft 1.12.2 in general based o
 Requires MySQL Database.
 
 1. Prevents battling/catching Pokemon if Party and PC are full. (Toggleable)
-2. More coming soon...
+2. Fusion Legendary Raids Fix
+3. More coming soon...
