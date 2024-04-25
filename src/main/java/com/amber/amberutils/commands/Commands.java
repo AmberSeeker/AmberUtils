@@ -4,7 +4,7 @@ import com.amber.amberutils.PluginInfo;
 import com.amber.amberutils.AmberUtils;
 import com.amber.amberutils.listeners.EventListeners;
 import com.amber.amberutils.sql_db.DatabaseManager;
-import com.amber.amberutils.sql_db.SQLConfig;
+import com.amber.amberutils.sql_db.GeneralConfig;
 import com.amber.amberutils.helpers.GeneralHelpers;
 import com.amber.amberutils.helpers.ToggleHelper;
 import org.spongepowered.api.entity.living.player.Player;
@@ -79,7 +79,7 @@ public class Commands implements CommandExecutor {
                     if (noSpaceToggles.get(playerId) != null)
                     noSpaceToggle.setValue(noSpaceToggles.get(playerId));
                 }
-                src.sendMessage(Text.of(TextColors.YELLOW, "/amberutils nospace - Fight Wild Pokemon regardless of Space Enabled: " + noSpaceToggle.getValue()));
+                src.sendMessage(Text.of(TextColors.YELLOW, "/amberutils nospace - Fight Wild Pokemon regardless of Space. Enabled: " + noSpaceToggle.getValue()));
                 noSpaceToggle.setValue(null);
                 return CommandResult.success();
             })
@@ -97,7 +97,7 @@ public class Commands implements CommandExecutor {
                 } else {
                     logger.info("§aReloading AmberUtils...");
                 }
-                SQLConfig.readSQLConfig();
+                GeneralConfig.readGeneralConfig();
                 DatabaseManager.savePlayerData(src);
                 DatabaseManager.loadPlayerData(src);
                 return CommandResult.success();

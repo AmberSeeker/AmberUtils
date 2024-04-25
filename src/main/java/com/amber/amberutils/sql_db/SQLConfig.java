@@ -1,17 +1,15 @@
 package com.amber.amberutils.sql_db;
 
 import com.amber.amberutils.AmberUtils;
-import com.amber.amberutils.PluginInfo;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
+
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.FileInputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Properties;
 
@@ -20,6 +18,7 @@ public class SQLConfig {
     private static final Logger logger = AmberUtils.logger;
     private static final Path configDir = Sponge.getGame().getGameDirectory().resolve("config/AmberUtils");
     private static final Path sqlConfigFile = configDir.resolve("SQLconfig.properties");
+
     public static String DB_URL;
     public static String DB_USER;
     public static String DB_PASSWORD;

@@ -3,7 +3,7 @@ package com.amber.amberutils;
 import com.amber.amberutils.commands.Commands;
 import com.amber.amberutils.listeners.EventListeners;
 import com.amber.amberutils.sql_db.DatabaseManager;
-import com.amber.amberutils.sql_db.SQLConfig;
+import com.amber.amberutils.sql_db.GeneralConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
@@ -50,7 +50,7 @@ public class AmberUtils {
     public void onInitialization(GameInitializationEvent event) {
         this.logger.info("AmberUtils is starting...");
         try {
-            SQLConfig.readSQLConfig();
+            GeneralConfig.readGeneralConfig();
             DatabaseManager.loadPlayerData(Sponge.getServer().getConsole());
             CommandSpec uCommandSpec = Commands.buildSpec();
             Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
@@ -76,7 +76,7 @@ public class AmberUtils {
             logger.info("Reloading AmberUtils...");
         }
         try {
-            SQLConfig.readSQLConfig();
+            GeneralConfig.readGeneralConfig();
             DatabaseManager.savePlayerData(source);
             DatabaseManager.loadPlayerData(source);
         } catch (Exception e) {
