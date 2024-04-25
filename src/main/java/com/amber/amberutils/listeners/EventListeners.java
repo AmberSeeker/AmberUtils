@@ -1,14 +1,19 @@
 package com.amber.amberutils.listeners;
 
+import com.amber.amberutils.AmberUtils;
 import com.amber.amberutils.helpers.GeneralHelpers;
 import com.pixelmonmod.pixelmon.Pixelmon;
+import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.api.events.PokeballImpactEvent;
 import com.pixelmonmod.pixelmon.api.events.AggressionEvent;
 import com.pixelmonmod.pixelmon.api.events.BattleStartedEvent;
 import com.pixelmonmod.pixelmon.api.events.raids.JoinRaidEvent;
+import com.pixelmonmod.pixelmon.api.events.CaptureEvent.SuccessfulRaidCapture;
 import com.pixelmonmod.pixelmon.battles.controller.participants.BattleParticipant;
 import com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant;
 import com.pixelmonmod.pixelmon.battles.controller.participants.WildPixelmonParticipant;
+import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.entities.pixelmon.EntityPixelmon;
 import com.pixelmonmod.pixelmon.config.PixelmonConfig;
 import com.pixelmonmod.pixelmon.comm.CommandChatHandler;
@@ -83,4 +88,49 @@ public class EventListeners {
         }
     }
 
+    //Moronic Fusion Raids Fix
+    @SubscribeEvent
+    public void onRaidCaptureSuccess(SuccessfulRaidCapture e) {
+        Pokemon pokemon = e.getRaidPokemon();
+        String pname = pokemon.getSpecies().name();
+        int pform = pokemon.getForm();
+        AmberUtils.logger.info("Name: " + pname + " Form: " + pform + " ENUM: "+ pokemon.getFormEnum());
+        PlayerPartyStorage storage = Pixelmon.storageManager.getParty(e.player);
+        
+        //Kyurem Stuff
+        if (pname.equalsIgnoreCase("Kyurem") && pform != 0)
+        {
+            Pokemon kyuFuse = null;
+            
+            //Gib Zekrom to player
+            if (pform == 1)
+            kyuFuse = Pixelmon.pokemonFactory.create(EnumSpecies.Zekrom);
+            
+            //Gib Reshiram to player
+            if (pform == 2)
+            kyuFuse = Pixelmon.pokemonFactory.create(EnumSpecies.Reshiram);
+            
+            //Add to player's party and change Kyurem to Normal
+            storage.add(kyuFuse);
+            pokemon.setForm(0);
+        }
+        
+        //Necrozma Stuff
+        if (pname.equalsIgnoreCase("Necrozma") && pform != 0)
+        {
+            Pokemon necroFuse = null;
+            
+            //Gib Solgaleo to player
+            if (pform == 1)
+            necroFuse = Pixelmon.pokemonFactory.create(EnumSpecies.Solgaleo);
+
+            //Gib Lunala to player
+            if (pform == 2)
+            necroFuse = Pixelmon.pokemonFactory.create(EnumSpecies.Lunala);
+            
+            //Add to player's party and change Necrozma to Normal
+            storage.add(necroFuse);
+            pokemon.setForm(0);
+        }
+    }
 }
