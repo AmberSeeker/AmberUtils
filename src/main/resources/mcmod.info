@@ -2,7 +2,7 @@
     {
         "modid": "amberutils",
         "name": "AmberUtils",
-        "version": "0.0.1-alpha",
+        "version": "0.1.0-release",
         "description": "Utilities for Pixelmon 8.4.3 and Minecraft 1.12.2 on SpongeForge",
         "url": "https://github.com/AmberSeeker/AmberUtils/",
         "authorList": [

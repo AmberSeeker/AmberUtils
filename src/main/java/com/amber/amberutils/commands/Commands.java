@@ -2,9 +2,8 @@ package com.amber.amberutils.commands;
 
 import com.amber.amberutils.PluginInfo;
 import com.amber.amberutils.AmberUtils;
-import com.amber.amberutils.listeners.EventListeners;
 import com.amber.amberutils.sql_db.DatabaseManager;
-import com.amber.amberutils.sql_db.GeneralConfig;
+import com.amber.amberutils.sql_db.AmberUtilsConfig;
 import com.amber.amberutils.helpers.GeneralHelpers;
 import com.amber.amberutils.helpers.ToggleHelper;
 import org.spongepowered.api.entity.living.player.Player;
@@ -12,7 +11,6 @@ import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
-import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
@@ -97,7 +95,7 @@ public class Commands implements CommandExecutor {
                 } else {
                     logger.info("§aReloading AmberUtils...");
                 }
-                GeneralConfig.readGeneralConfig();
+                AmberUtilsConfig.readGeneralConfig();
                 DatabaseManager.savePlayerData(src);
                 DatabaseManager.loadPlayerData(src);
                 return CommandResult.success();

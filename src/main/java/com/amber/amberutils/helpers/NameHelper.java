@@ -6,7 +6,7 @@ import org.spongepowered.api.service.user.UserStorageService;
 import java.util.Optional;
 import java.util.UUID;
 
-public class PlayerNameHelper {
+public class NameHelper {
 
     public static String getPlayerName(UUID playerId) {
         Optional<Player> playerOptional = Sponge.getServer().getPlayer(playerId);

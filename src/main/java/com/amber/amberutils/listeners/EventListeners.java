@@ -1,6 +1,5 @@
 package com.amber.amberutils.listeners;
 
-import com.amber.amberutils.AmberUtils;
 import com.amber.amberutils.helpers.GeneralHelpers;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
@@ -15,7 +14,6 @@ import com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipan
 import com.pixelmonmod.pixelmon.battles.controller.participants.WildPixelmonParticipant;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.entities.pixelmon.EntityPixelmon;
-import com.pixelmonmod.pixelmon.config.PixelmonConfig;
 import com.pixelmonmod.pixelmon.comm.CommandChatHandler;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextFormatting;
@@ -31,6 +29,8 @@ public class EventListeners {
         if (!(e.pokeball.getThrower() instanceof EntityPlayerMP))
             return; 
         EntityPixelmon pokemon = (EntityPixelmon)e.getEntityHit();
+        if (pokemon == null)
+            return;
         if (pokemon.isBossPokemon() || pokemon.hasOwner())
             return;
         EntityPlayerMP player = (EntityPlayerMP)e.pokeball.getThrower();
@@ -94,7 +94,6 @@ public class EventListeners {
         Pokemon pokemon = e.getRaidPokemon();
         String pname = pokemon.getSpecies().name();
         int pform = pokemon.getForm();
-        AmberUtils.logger.info("Name: " + pname + " Form: " + pform + " ENUM: "+ pokemon.getFormEnum());
         PlayerPartyStorage storage = Pixelmon.storageManager.getParty(e.player);
         
         //Kyurem Stuff
