@@ -1,5 +1,6 @@
 package com.amber.amberutils;
 
+import com.amber.amberutils.helpers.RecipeModifier;
 import com.amber.amberutils.commands.Commands;
 import com.amber.amberutils.listeners.EventListeners;
 import com.amber.amberutils.sql_db.DatabaseManager;
@@ -54,6 +55,7 @@ public class AmberUtils {
             DatabaseManager.loadPlayerData(Sponge.getServer().getConsole());
             CommandSpec uCommandSpec = Commands.buildSpec();
             Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
+            RecipeModifier.overrideRecipeOutput();
         } catch (Exception e) {
             logger.error("An error occurred during initialization:", e);
         }
