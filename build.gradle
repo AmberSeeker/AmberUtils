@@ -111,7 +111,7 @@ jar {
     }
 }
 
-jar {
+/*jar {
     // Configure the JAR file name
     //archiveName = modBaseName+ '-' + version + '.jar'
     
@@ -120,7 +120,7 @@ jar {
     
     // Optionally, you can specify the destination directory for the JAR file
     destinationDir = file('D:/Pixver/spigtst/mods')
-}
+}*/
 
 // Taken from the internet, with some slight edits. vvv
 processResources
