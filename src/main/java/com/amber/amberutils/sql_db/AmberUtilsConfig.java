@@ -65,7 +65,7 @@ public class AmberUtilsConfig {
                 initializeConfig();
             }
         } catch (IOException e) {
-            logger.error("An error occurred while reading or creating General configuration file.");
+            logger.error("An error occurred while reading or creating AmberUtils configuration file.");
             e.printStackTrace();
         }
     }
