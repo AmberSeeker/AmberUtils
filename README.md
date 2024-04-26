@@ -1,5 +1,5 @@
 # AmberUtils
-Adds utility tools and stuff for Pixelmon and Mincraft 1.12.2 in general based on SpongeForge 7.0.0.
+Adds utility tools and stuff for Pixelmon and Mincraft 1.20.2 in general based on SpongeForge 11.0.0.
 Can be hooked to a MySQL Database. Creates a SQLite Database automatically, if set to local.
 
 - Prevents battling and catching Pokemon, joining Raids and wild Pokemon aggression battle if Party and PC are full. (Toggleable)
