@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
     }
 }
         
@@ -113,7 +113,7 @@ jar {
 
 jar {
     // Configure the JAR file name
-    archiveName = modBaseName+ '-' + version + '.jar'
+    //archiveName = modBaseName+ '-' + version + '.jar'
     
     // Optionally, you can set the base name as well
     // archivesBaseName = 'CustomJarName'
