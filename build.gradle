@@ -11,15 +11,11 @@ buildscript {
         
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
 
 // Sets the version number shown in the file name.
 version = modVersion
 group = modGroup // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
-//noinspection GroovyUnusedAssignment
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.
