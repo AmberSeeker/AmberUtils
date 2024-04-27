@@ -53,7 +53,7 @@ public class AmberUtilsConfig {
                     writer.write("db.password=your_database_password\n");
                 }
             }
-            BannedItemsList.readBanList();
+            
             // Load properties from the config file
             Properties prop = new Properties();
             try (InputStream input = new FileInputStream(generalConfigFile.toFile())) {
@@ -65,6 +65,7 @@ public class AmberUtilsConfig {
                 DB_USER = prop.getProperty("db.user", "");
                 DB_PASSWORD = prop.getProperty("db.password", "");
                 logger.info("General configuration loaded successfully.");
+                BannedItemsList.readBanList();
                 initializeConfig();
             }
         } catch (IOException e) {

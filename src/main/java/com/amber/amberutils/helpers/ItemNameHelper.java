@@ -2,7 +2,7 @@ package com.amber.amberutils.helpers;
 
 public class ItemNameHelper {
 
-    //Callable method to convet snake_case into Title Case
+    //Callable method to convert snake_case into Title Case
     public static String snakeCaseToTitleCase(String input) {
 
         // Split the input string by colon (":")

@@ -23,11 +23,9 @@ public class DatabaseManager {
     public static final Map<UUID, Boolean> noSpaceToggles = AmberUtils.noSpaceToggles;
     
     public static void loadPlayerData(CommandSource source) {
-        //logger.info("Loading player data...");
+
         if (AmberUtilsConfig.STORAGE_METHOD.equalsIgnoreCase("sql")) {
             loadPlayerDataFromSQL(source);
-        } else if (AmberUtilsConfig.STORAGE_METHOD.equalsIgnoreCase("json")) {
-            //loadPlayerDataFromJson(source);
         } else if (AmberUtilsConfig.STORAGE_METHOD.equalsIgnoreCase("sqlite")) {
             loadPlayerDataFromSQLite(source);
         }
@@ -92,11 +90,9 @@ public class DatabaseManager {
     
     
     public static void savePlayerData(CommandSource source) {
-        //logger.info("Saving player data...");
+
         if (AmberUtilsConfig.STORAGE_METHOD.equalsIgnoreCase("sql")) {
             savePlayerDataToSQL(source);
-        } else if (AmberUtilsConfig.STORAGE_METHOD.equalsIgnoreCase("json")) {
-            //savePlayerDataToJson(source);
         } else if (AmberUtilsConfig.STORAGE_METHOD.equalsIgnoreCase("sqlite")) {
             savePlayerDataToSQLite(source);
         } else {
@@ -148,7 +144,6 @@ public class DatabaseManager {
                     stmt.setString(1, playerId.toString());
                     stmt.setString(2, playerName);
                     stmt.setBoolean(3, noSpaceToggle);
-                    //stmt.setBoolean(4, noSpaceToggle);
                     stmt.executeUpdate();
                 }
             }

@@ -9,4 +9,3 @@ public class PluginInfo {
 	public static final String DESCR = "Utilities for Pixelmon and Minecraft 1.12.2";
 	
 }
-//i-BX4ZRMqanDZPblwi2avugQew4_xEfsGF4DUIYi-yc

@@ -18,7 +18,7 @@ public class SQLiteConfig {
     private static final String DB_URL = "jdbc:sqlite:" + dbFile;
 
     public static void initializeDatabase() {
-        // Create directory if it doesn't exist
+
         File directory = dbDir.toFile();
         if (!directory.exists()) {
             if (directory.mkdirs()) {
@@ -47,6 +47,7 @@ public class SQLiteConfig {
         }
     }
 
+    // Create table if it doesn't exist
     private static void createPlayerSettingsTable() {
         String sql = "CREATE TABLE IF NOT EXISTS player_settings ("
                    + "player_uuid TEXT PRIMARY KEY,"
@@ -65,6 +66,7 @@ public class SQLiteConfig {
 
     private static boolean createDatabase() {
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
+            
             // This will create an empty SQLite database file
             return true;
         } catch (SQLException e) {

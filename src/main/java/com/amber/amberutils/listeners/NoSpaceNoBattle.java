@@ -88,7 +88,7 @@ public class NoSpaceNoBattle {
         }
     }
 
-    //Moronic Fusion Raids Fix
+    //Fusion Raids Fix
     @SubscribeEvent
     public void onRaidCaptureSuccess(SuccessfulRaidCapture e) {
         Pokemon pokemon = e.getRaidPokemon();

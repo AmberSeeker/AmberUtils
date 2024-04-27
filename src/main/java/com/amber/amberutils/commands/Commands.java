@@ -34,7 +34,7 @@ public class Commands implements CommandExecutor {
     public static CommandSpec buildSpec() {
         return CommandSpec.builder()
             .description(Text.of("Displays information about AmberUtils plugin"))
-            .permission("amberutils.command.base") // Optional: Add permission node
+            .permission("amberutils.command.base")
             .executor(new Commands())
             .child(buildNoSpaceSpec(), "nospace")
             .child(buildHelpSpec(), "help", "?")
@@ -45,7 +45,7 @@ public class Commands implements CommandExecutor {
     private static CommandSpec buildNoSpaceSpec() {
         return CommandSpec.builder()
             .description(Text.of("Toggle the 'no space' behavior"))
-            .permission("amberutils.command.nospace") // Optional: Add permission node
+            .permission("amberutils.command.nospace")
             .executor((src, args) -> {
                 if (!(src instanceof Player)) {
                     src.sendMessage(Text.of(TextColors.RED, "Only players can use this command."));
