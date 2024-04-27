@@ -53,7 +53,7 @@ public class AmberUtilsConfig {
                     writer.write("db.password=your_database_password\n");
                 }
             }
-
+            BannedItemsList.readBanList();
             // Load properties from the config file
             Properties prop = new Properties();
             try (InputStream input = new FileInputStream(generalConfigFile.toFile())) {
