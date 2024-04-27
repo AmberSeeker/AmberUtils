@@ -1,7 +1,7 @@
 package com.amber.amberutils;
 
-import com.amber.amberutils.helpers.RecipeModifier;
 import com.amber.amberutils.commands.Commands;
+import com.amber.amberutils.listeners.BannedItemsRemover;
 import com.amber.amberutils.listeners.EventListeners;
 import com.amber.amberutils.sql_db.DatabaseManager;
 import com.amber.amberutils.sql_db.AmberUtilsConfig;
@@ -44,18 +44,20 @@ public class AmberUtils {
     }
     
     public Logger getLogger() {
-    return this.logger;
+    return logger;
     }
 
     @Listener
     public void onInitialization(GameInitializationEvent event) {
-        this.logger.info("Starting up AmberUtils v." + PluginInfo.VERSION+"...");
+        logger.info("Starting up AmberUtils v." + PluginInfo.VERSION+"...");
         try {
             AmberUtilsConfig.readGeneralConfig();
             DatabaseManager.loadPlayerData(Sponge.getServer().getConsole());
             CommandSpec uCommandSpec = Commands.buildSpec();
             Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
-            RecipeModifier.overrideRecipeOutput();
+            //RecipeModifier.overrideRecipeOutput();
+            //AdvancementModifier.suppressAdvancementErrors();
+            //RecipeRemover.removeCustomRecipe("minecraft:piston");
         } catch (Exception e) {
             logger.error("An error occurred during initialization:", e);
         }
@@ -64,8 +66,9 @@ public class AmberUtils {
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
         instance = this;
-        this.logger.info("AmberUtils is now active!");
+        logger.info("AmberUtils is now active!");
         Pixelmon.EVENT_BUS.register(new EventListeners());
+        Sponge.getEventManager().registerListeners(this, new BannedItemsRemover());
     }
 
     @Listener
@@ -88,7 +91,7 @@ public class AmberUtils {
 
     @Listener
     public void onServerStop(GameStoppingServerEvent event) {
-        this.logger.info("AmberUtils is saving Data and Shutting Down! Bye!");
+        logger.info("AmberUtils is saving Data and Shutting Down! Bye!");
         try {
             DatabaseManager.savePlayerData(Sponge.getServer().getConsole());
         } catch (Exception e) {
