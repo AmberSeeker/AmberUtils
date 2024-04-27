@@ -1,9 +1,9 @@
 package com.amber.amberutils.commands;
 
 import com.amber.amberutils.PluginInfo;
+import com.amber.amberutils.config.AmberUtilsConfig;
 import com.amber.amberutils.AmberUtils;
 import com.amber.amberutils.sql_db.DatabaseManager;
-import com.amber.amberutils.sql_db.AmberUtilsConfig;
 import com.amber.amberutils.helpers.GeneralHelpers;
 import com.amber.amberutils.helpers.ToggleHelper;
 import org.spongepowered.api.entity.living.player.Player;

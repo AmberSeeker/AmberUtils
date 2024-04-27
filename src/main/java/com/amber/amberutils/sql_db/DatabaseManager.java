@@ -1,6 +1,7 @@
 package com.amber.amberutils.sql_db;
 
 import com.amber.amberutils.AmberUtils;
+import com.amber.amberutils.config.AmberUtilsConfig;
 import com.amber.amberutils.helpers.NameHelper;
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,6 +1,9 @@
-package com.amber.amberutils.sql_db;
+package com.amber.amberutils.config;
 
 import com.amber.amberutils.AmberUtils;
+import com.amber.amberutils.sql_db.SQLConfig;
+import com.amber.amberutils.sql_db.SQLiteConfig;
+
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import java.io.BufferedWriter;

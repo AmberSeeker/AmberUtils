@@ -19,7 +19,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class EventListeners {
+public class NoSpaceNoBattle {
 
     //Check for Empty Pokeball or Pokemon thrown on a wild Pokemon
     @SubscribeEvent

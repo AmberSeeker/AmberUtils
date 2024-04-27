@@ -1,10 +1,11 @@
 package com.amber.amberutils;
 
 import com.amber.amberutils.commands.Commands;
+import com.amber.amberutils.config.AmberUtilsConfig;
 import com.amber.amberutils.listeners.BannedItemsRemover;
-import com.amber.amberutils.listeners.EventListeners;
+import com.amber.amberutils.listeners.NoSpaceNoBattle;
 import com.amber.amberutils.sql_db.DatabaseManager;
-import com.amber.amberutils.sql_db.AmberUtilsConfig;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
@@ -55,9 +56,6 @@ public class AmberUtils {
             DatabaseManager.loadPlayerData(Sponge.getServer().getConsole());
             CommandSpec uCommandSpec = Commands.buildSpec();
             Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
-            //RecipeModifier.overrideRecipeOutput();
-            //AdvancementModifier.suppressAdvancementErrors();
-            //RecipeRemover.removeCustomRecipe("minecraft:piston");
         } catch (Exception e) {
             logger.error("An error occurred during initialization:", e);
         }
@@ -67,7 +65,7 @@ public class AmberUtils {
     public void onServerStart(GameStartedServerEvent event) {
         instance = this;
         logger.info("AmberUtils is now active!");
-        Pixelmon.EVENT_BUS.register(new EventListeners());
+        Pixelmon.EVENT_BUS.register(new NoSpaceNoBattle());
         Sponge.getEventManager().registerListeners(this, new BannedItemsRemover());
     }
 
