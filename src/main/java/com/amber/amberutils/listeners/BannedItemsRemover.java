@@ -8,6 +8,9 @@ import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
+import com.amber.amberutils.helpers.ItemNameHelper;
+import com.amber.amberutils.config.BannedItemsList;
+
 public class BannedItemsRemover {
 
     @Listener
@@ -17,11 +20,13 @@ public class BannedItemsRemover {
             if (inventory.getName().get().equals("Result")) {
                 for (Inventory slot : inventory.slots()) {
                     ItemStackSnapshot itemSnapshot = slot.peek().map(stack -> stack.createSnapshot()).orElse(null);
-                    if (itemSnapshot != null && itemSnapshot.getType().getName().equalsIgnoreCase("minecraft:piston")) {
-                        slot.clear();
-                        if (event.getCause().first(Player.class).isPresent()) {
-                            Player player = event.getCause().first(Player.class).get();
-                            player.sendMessage(Text.of(TextColors.RED, "Piston is banned and was deleted."));
+                    for (String item : BannedItemsList.banlist) {
+                        if (itemSnapshot != null && itemSnapshot.getType().getName().equalsIgnoreCase(item)) {
+                            slot.clear();
+                            if (event.getCause().first(Player.class).isPresent()) {
+                                Player player = event.getCause().first(Player.class).get();
+                                player.sendMessage(Text.of(TextColors.RED, ItemNameHelper.snakeCaseToTitleCase(item) + " is banned and was deleted."));
+                            }
                         }
                     }
                 }
