@@ -4,5 +4,5 @@ Can be hooked to a MySQL Database. Creates a SQLite Database automatically, if s
 
 - Prevents battling and catching Pokemon, joining Raids and wild Pokemon aggression battle if Party and PC are full. (Toggleable)
 - Fusion Legendary Raids Fix. On successful capture of a fused legendary, the legendary will return to its original state and players will receive both members of the fused legendary.
-- Recipe modifer to remove unwanted recipes eg., Piston and prevent players from crafting them. (v.0.2.0)
+- Removes banned items aka Pistons when certain conditions are met. (v.0.2.0)
 - More coming soon...
