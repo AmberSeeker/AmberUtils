@@ -5,6 +5,7 @@ import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.api.events.PokeballImpactEvent;
+import com.pixelmonmod.pixelmon.api.events.PokedexEvent;
 import com.pixelmonmod.pixelmon.api.events.AggressionEvent;
 import com.pixelmonmod.pixelmon.api.events.BattleStartedEvent;
 import com.pixelmonmod.pixelmon.api.events.raids.JoinRaidEvent;
@@ -87,6 +88,13 @@ public class NoSpaceNoBattle {
             CommandChatHandler.sendFormattedChat(player, TextFormatting.RED, "You can't join the raid as you have no space in your Party or PC!");
         }
     }
+
+    // For laters
+    /*@SubscribeEvent
+    public void onPokedexUpdate(PokedexEvent e)
+    {
+        System.out.println(e.cause + " " +e.pokemon.getUUID());
+    }*/
 
     //Fusion Raids Fix
     @SubscribeEvent

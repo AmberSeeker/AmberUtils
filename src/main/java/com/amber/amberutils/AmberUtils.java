@@ -1,8 +1,10 @@
 package com.amber.amberutils;
 
 import com.amber.amberutils.commands.Commands;
+import com.amber.amberutils.commands.EvoFixCommand;
 import com.amber.amberutils.config.AmberUtilsConfig;
 import com.amber.amberutils.listeners.BannedItemsRemover;
+import com.amber.amberutils.listeners.DiscordBroadcasts;
 import com.amber.amberutils.listeners.NoSpaceNoBattle;
 import com.amber.amberutils.sql_db.DatabaseManager;
 
@@ -50,12 +52,14 @@ public class AmberUtils {
 
     @Listener
     public void onInitialization(GameInitializationEvent event) {
-        logger.info("Starting up AmberUtils v." + PluginInfo.VERSION+"...");
+        logger.info("Starting up AmberUtils v" + PluginInfo.VERSION+"...");
         try {
             AmberUtilsConfig.readGeneralConfig();
             DatabaseManager.loadPlayerData(Sponge.getServer().getConsole());
             CommandSpec uCommandSpec = Commands.buildSpec();
             Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
+            CommandSpec evoFixSpec = EvoFixCommand.buildSpec();
+            Sponge.getCommandManager().register(this, evoFixSpec, "evofix","evolutionfix");
         } catch (Exception e) {
             logger.error("An error occurred during initialization:", e);
         }
@@ -66,9 +70,10 @@ public class AmberUtils {
         instance = this;
         logger.info("AmberUtils is now active!");
         Pixelmon.EVENT_BUS.register(new NoSpaceNoBattle());
+        // Pixelmon.EVENT_BUS.register(new DiscordBroadcasts()); For laters
         Sponge.getEventManager().registerListeners(this, new BannedItemsRemover());
     }
-
+// Make a mod present boolean method to check for discord utils
     @Listener
     public void reload(GameReloadEvent event) {
         CommandSource source = event.getCause().first(CommandSource.class).orElse(null);

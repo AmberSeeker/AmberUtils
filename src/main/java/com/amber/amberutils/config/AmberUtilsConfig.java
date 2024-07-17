@@ -37,7 +37,7 @@ public class AmberUtilsConfig {
             if (!Files.exists(generalConfigFile)) {
                 Files.createFile(generalConfigFile);
                 logger.info("Created AmberUtilsConfig.properties file.");
-                logger.warn("Don't forget to set your storage.method in the config file and reload the plugin.");
+                logger.warn("Don't forget to set your storage.method and discord details(for DiscordUtils) in the config file and reload the plugin.");
                 try (BufferedWriter writer = Files.newBufferedWriter(generalConfigFile, StandardOpenOption.WRITE)) {
                     writer.write("# General Configuration\n");
                     writer.newLine();
@@ -51,6 +51,11 @@ public class AmberUtilsConfig {
                     writer.write("db.port=database_port_usually_3306\n");
                     writer.write("db.user=your_database_user\n");
                     writer.write("db.password=your_database_password\n");
+                    writer.newLine();
+                    writer.write("# Discord Details for DiscordUtils\n");
+                    writer.write("discord.token=YOUR_DISCORD_BOT_TOKEN_HERE\n");
+                    writer.write("discord.channelid=CHANNEL_ID_OF_THE_BROADCAST_CHANNEL\n");
+                    writer.write("server.name=YOUR_SERVER_NAME");
                 }
             }
             

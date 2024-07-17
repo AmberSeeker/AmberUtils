@@ -61,6 +61,9 @@ repositories {
     maven {
         url 'https://jitpack.io'
     }
+    flatDir {
+        dirs 'lib'
+    }
     ivy {
         name = 'Pixelmon Reforged'
         url "https://download.nodecdn.net/containers/reforged/server/release"
@@ -84,6 +87,7 @@ tasks.withType(JavaCompile)
 
 dependencies {
     minecraft 'net.minecraftforge:forge:' + forgeVersion
+    implementation name: 'DiscordUtils-1.12.2-0.1.0-all'
     compileOnly 'org.spongepowered:spongeapi:' + spongeVersion
     compileOnly 'pixelmon:Pixelmon-1.12.2-' + pixelmonVersion + '-server:' + pixelmonVersion
     compileOnly fileTree(dir: 'libs', include: ['*.jar'])
