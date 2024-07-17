@@ -60,7 +60,7 @@ public class EvoFixCommand implements CommandExecutor {
             return CommandResult.success();
         }
         
-        EntityPixelmon pixel = 	pokemon.getOrSpawnPixelmon(pokemon.getOwnerPlayer());
+        EntityPixelmon pixel = pokemon.getOrSpawnPixelmon(pokemon.getOwnerPlayer());
 
         if (pixel == null) {
             player.sendMessage(Text.of(TextColors.RED, "An error occurred while throwing out your Pokemon. Please try again!"));
