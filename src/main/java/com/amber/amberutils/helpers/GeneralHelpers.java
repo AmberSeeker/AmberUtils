@@ -10,7 +10,16 @@ import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.api.storage.PCStorage;
 import com.pixelmonmod.pixelmon.config.PixelmonConfig;
+import com.pixelmonmod.pixelmon.config.PixelmonItems;
+import com.pixelmonmod.pixelmon.entities.pixelmon.EntityPixelmon;
+import com.pixelmonmod.pixelmon.entities.pixelmon.stats.BaseStats;
+import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Gender;
+import com.pixelmonmod.pixelmon.enums.EnumSpecies;
+
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -160,4 +169,30 @@ public class GeneralHelpers {
             return form;
         }
     }
+
+    public static NBTTagCompound addGlint(NBTTagCompound nbt){
+        NBTTagList enchList = new NBTTagList();
+        NBTTagCompound enchantmentTag = new NBTTagCompound();
+        enchantmentTag.setShort("id", (short) -1);
+        enchList.appendTag(enchantmentTag);
+        nbt.setTag("ench", enchList);
+        return nbt;
+    }
+    
+    public static ItemStack getPhoto(EntityPixelmon pokemon) {
+        EnumSpecies species = pokemon.getSpecies();
+		BaseStats stats = species.getBaseStats();
+
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setShort("ndex", (short) species.getNationalPokedexInteger());
+		nbt.setByte("form", (byte) pokemon.getPokemonData().getForm());
+        nbt.setByte("Shiny", pokemon.getPokemonData().isShiny() ? (byte)1:0);
+		nbt.setByte("gender", pokemon.getPokemonData().getGender().getForm());
+        if (pokemon.isBossPokemon())
+        addGlint(nbt);
+        
+		ItemStack is = new ItemStack(PixelmonItems.itemPixelmonSprite);
+		is.setTagCompound(nbt);
+		return is;
+	}
 }
