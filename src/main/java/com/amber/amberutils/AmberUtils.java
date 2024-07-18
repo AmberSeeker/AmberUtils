@@ -2,6 +2,7 @@ package com.amber.amberutils;
 
 import com.amber.amberutils.commands.Commands;
 import com.amber.amberutils.commands.EvoFixCommand;
+import com.amber.amberutils.commands.RadiusEntitiesCommand;
 import com.amber.amberutils.config.AmberUtilsConfig;
 import com.amber.amberutils.listeners.BannedItemsRemover;
 import com.amber.amberutils.listeners.DiscordBroadcasts;
@@ -60,6 +61,8 @@ public class AmberUtils {
             Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
             CommandSpec evoFixSpec = EvoFixCommand.buildSpec();
             Sponge.getCommandManager().register(this, evoFixSpec, "evofix","evolutionfix");
+            CommandSpec radiusEntitiesCommandSpec = RadiusEntitiesCommand.buildSpec();
+        Sponge.getCommandManager().register(this, radiusEntitiesCommandSpec, "pokenear");
         } catch (Exception e) {
             logger.error("An error occurred during initialization:", e);
         }
