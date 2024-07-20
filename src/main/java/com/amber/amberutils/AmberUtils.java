@@ -4,7 +4,7 @@ import com.amber.amberutils.commands.MainCommand;
 import com.amber.amberutils.commands.EggSellCommand;
 import com.amber.amberutils.commands.EvoFixCommand;
 import com.amber.amberutils.commands.RadiusEntitiesCommand;
-import com.amber.amberutils.commands.TestGuiCommand;
+import com.amber.amberutils.commands.SellGuiCommand;
 import com.amber.amberutils.config.AmberUtilsConfig;
 import com.amber.amberutils.listeners.BannedItemsRemover;
 import com.amber.amberutils.listeners.DiscordBroadcasts;
@@ -63,7 +63,7 @@ public class AmberUtils {
             Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
             Sponge.getCommandManager().register(this, EvoFixCommand.buildSpec(), "evofix","evolutionfix");
             Sponge.getCommandManager().register(this, RadiusEntitiesCommand.buildSpec(), "pokenear");
-            Sponge.getCommandManager().register(this, TestGuiCommand.buildSpec(), "sellgui");
+            Sponge.getCommandManager().register(this, SellGuiCommand.buildSpec(), "sellgui");
             Sponge.getCommandManager().register(this, EggSellCommand.buildSpec(), "eggsell");
         } catch (Exception e) {
             logger.error("An error occurred during initialization:", e);
