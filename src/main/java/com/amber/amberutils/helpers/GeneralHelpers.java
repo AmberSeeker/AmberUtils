@@ -8,6 +8,7 @@ import org.spongepowered.api.Sponge;
 import java.util.Map;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
+import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.storage.PCStorage;
 import com.pixelmonmod.pixelmon.config.PixelmonConfig;
 import com.pixelmonmod.pixelmon.config.PixelmonItems;
@@ -157,6 +158,25 @@ public class GeneralHelpers {
         else {
             return "normal";
         }
+    }
+
+    public static boolean isHA(Pokemon pokemon) {
+        if (pokemon.getSpecies().getBaseStats().getHiddenAbility().isPresent()) {
+            if (pokemon.getAbilityName().equalsIgnoreCase(pokemon.getSpecies().getBaseStats().getHiddenAbility().get().getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isHA(EntityPixelmon pixel) {
+        Pokemon pokemon = (Pokemon)pixel.getPokemonData();
+        if (pokemon.getSpecies().getBaseStats().getHiddenAbility().isPresent()) {
+            if (pokemon.getAbilityName().equalsIgnoreCase(pokemon.getSpecies().getBaseStats().getHiddenAbility().get().getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Get formatted form name
