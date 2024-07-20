@@ -65,7 +65,6 @@ public class SellGuiCommand implements CommandExecutor {
         // Check if the closed inventory is the test GUI inventory
         if (closedInventory.getName().get().equals("Sell GUI") && player != null) {
             // Return items to the player's inventory
-            player.sendMessage(Text.of("AAAAAAAAAAAAAA"));
             for (Inventory slot : closedInventory.slots()) {
                 if (count >= 54)
                 break;
