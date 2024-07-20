@@ -12,8 +12,6 @@ import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.listener.EntityPlayerExtension;
 import com.pixelmonmod.pixelmon.client.gui.GuiResources;
 
-import javax.annotation.Resource;
-
 import org.spongepowered.api.Sponge;
 
 import net.minecraft.util.ResourceLocation;
