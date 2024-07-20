@@ -1,6 +1,7 @@
 package com.amber.amberutils.listeners;
 
 import com.amber.amberdiscord.DiscordUtils;
+import com.amber.amberutils.config.AmberUtilsConfig;
 import com.amber.amberutils.helpers.GeneralHelpers;
 import com.pixelmonmod.pixelmon.api.events.CaptureEvent;
 import com.pixelmonmod.pixelmon.api.events.BeatWildPixelmonEvent;
@@ -28,6 +29,9 @@ public class DiscordBroadcasts {
 
     @SubscribeEvent
     public void onSpawn(SpawnEvent e) {
+
+      if (!AmberUtilsConfig.discordbc)
+      return;
 
       Entity entity = e.action.getOrCreateEntity();
       if (!(entity instanceof EntityPixelmon))
@@ -60,6 +64,9 @@ public class DiscordBroadcasts {
   @SubscribeEvent
   public void onCaught(CaptureEvent.SuccessfulCapture e) {
 
+    if (!AmberUtilsConfig.discordbc)
+      return;
+
     Pokemon pokemon = e.getPokemon().getPokemonData();
     //Checks for Legendary/Ultra Beast
     Boolean isLegend = Boolean.valueOf(pokemon.getSpecies().isLegendary());
@@ -79,6 +86,9 @@ public class DiscordBroadcasts {
 
   @SubscribeEvent
   public void onDefeat(BeatWildPixelmonEvent e) {
+
+    if (!AmberUtilsConfig.discordbc)
+      return;
     
     EntityPixelmon pokemon = (EntityPixelmon)e.wpp.getEntity();
     Boolean isLegend = Boolean.valueOf(pokemon.getSpecies().isLegendary());

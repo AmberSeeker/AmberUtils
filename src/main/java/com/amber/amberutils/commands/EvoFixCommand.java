@@ -19,6 +19,7 @@ import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.conditions.Evo
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.types.LevelingEvolution;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.types.TickingEvolution;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
+import com.amber.amberutils.config.AmberUtilsConfig;
 import com.pixelmonmod.pixelmon.Pixelmon;
 
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -27,6 +28,13 @@ public class EvoFixCommand implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) {
+
+        // Disables the module
+        if (!AmberUtilsConfig.evofix) {
+            src.sendMessage(Text.of(TextColors.RED, "This module is disabled!"));
+            return CommandResult.success();
+        }
+
         if (!(src instanceof Player)) {
             src.sendMessage(Text.of(TextColors.RED, "Only players can use this command."));
             return CommandResult.success();

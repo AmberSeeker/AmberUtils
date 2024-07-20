@@ -1,5 +1,6 @@
 package com.amber.amberutils.commands;
 
+import com.amber.amberutils.config.AmberUtilsConfig;
 import com.amber.amberutils.helpers.GeneralHelpers;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.args.CommandContext;
@@ -25,6 +26,13 @@ public class RadiusEntitiesCommand implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) {
+        
+        // Disables the module
+        if (!AmberUtilsConfig.pokenear) {
+            src.sendMessage(Text.of(TextColors.RED, "This module is disabled!"));
+            return CommandResult.success();
+        }
+
         if (!(src instanceof Player)) {
             src.sendMessage(Text.of(TextColors.RED, "Only players can use this command."));
             return CommandResult.success();
