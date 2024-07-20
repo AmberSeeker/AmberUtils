@@ -1,8 +1,10 @@
 package com.amber.amberutils;
 
-import com.amber.amberutils.commands.Commands;
+import com.amber.amberutils.commands.MainCommand;
+import com.amber.amberutils.commands.EggSellCommand;
 import com.amber.amberutils.commands.EvoFixCommand;
 import com.amber.amberutils.commands.RadiusEntitiesCommand;
+import com.amber.amberutils.commands.TestGuiCommand;
 import com.amber.amberutils.config.AmberUtilsConfig;
 import com.amber.amberutils.listeners.BannedItemsRemover;
 import com.amber.amberutils.listeners.DiscordBroadcasts;
@@ -57,12 +59,12 @@ public class AmberUtils {
         try {
             AmberUtilsConfig.readGeneralConfig();
             DatabaseManager.loadPlayerData(Sponge.getServer().getConsole());
-            CommandSpec uCommandSpec = Commands.buildSpec();
+            CommandSpec uCommandSpec = MainCommand.buildSpec();
             Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
-            CommandSpec evoFixSpec = EvoFixCommand.buildSpec();
-            Sponge.getCommandManager().register(this, evoFixSpec, "evofix","evolutionfix");
-            CommandSpec radiusEntitiesCommandSpec = RadiusEntitiesCommand.buildSpec();
-        Sponge.getCommandManager().register(this, radiusEntitiesCommandSpec, "pokenear");
+            Sponge.getCommandManager().register(this, EvoFixCommand.buildSpec(), "evofix","evolutionfix");
+            Sponge.getCommandManager().register(this, RadiusEntitiesCommand.buildSpec(), "pokenear");
+            Sponge.getCommandManager().register(this, TestGuiCommand.buildSpec(), "sellgui");
+            Sponge.getCommandManager().register(this, EggSellCommand.buildSpec(), "eggsell");
         } catch (Exception e) {
             logger.error("An error occurred during initialization:", e);
         }
