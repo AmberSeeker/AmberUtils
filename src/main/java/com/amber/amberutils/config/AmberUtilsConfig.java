@@ -25,6 +25,22 @@ public class AmberUtilsConfig {
     public static String DB_URL = "";
     public static String DB_USER = "";
     public static String DB_PASSWORD = "";
+    public static int[] natures = new int[10];
+    public static int base_price = 10;
+    public static int shiny_price = 100;
+    public static int ha_price = 50;
+    public static int hundo_price = 20;
+    public static int perf_price = 10;
+    public static int nature_price = 10;
+    public static boolean sell_ha = true;
+    public static boolean sell_shiny = true;
+
+    // Experimental
+    public static boolean discordbc = false;
+    public static boolean pokenear = false;
+    public static boolean sellgui = false;
+    public static boolean eggsell = false;
+    public static boolean evofix = false;
 
     public static void readGeneralConfig() {
         logger.info("Checking AmberUtilsConfig status...");
@@ -52,10 +68,27 @@ public class AmberUtilsConfig {
                     writer.write("db.user=your_database_user\n");
                     writer.write("db.password=your_database_password\n");
                     writer.newLine();
+                    writer.write("# Enable Experimental Modules (Things will break)\n");
+                    writer.write("ex.discordbc=false\n");
+                    writer.write("ex.pokenear=false\n");
+                    writer.write("ex.sellgui=false\n");
+                    writer.write("ex.eggsell=false\n");
+                    writer.write("ex.evofix=false\n");
+                    writer.newLine();
                     writer.write("# Discord Details for DiscordUtils\n");
                     writer.write("discord.token=YOUR_DISCORD_BOT_TOKEN_HERE\n");
                     writer.write("discord.channelid=CHANNEL_ID_OF_THE_BROADCAST_CHANNEL\n");
-                    writer.write("server.name=YOUR_SERVER_NAME");
+                    writer.write("server.name=YOUR_SERVER_NAME\n");
+                    writer.newLine();
+                    writer.write("# EggSell Stuff: Below values will be used for the /eggsell command.\n");
+                    writer.write("eggsell.base_price=10\n");
+                    writer.write("eggsell.shiny_price=100\n");
+                    writer.write("eggsell.ha_price=50\n");
+                    writer.write("eggsell.hundo_price=20\n");
+                    writer.write("eggsell.perf_price=10\n");
+                    writer.write("eggsell.nature_price=10\n");
+                    writer.write("eggsell.sell_ha=true\n");
+                    writer.write("eggsell.sell_shiny=true\n");
                 }
             }
             
@@ -69,6 +102,29 @@ public class AmberUtilsConfig {
                 DB_URL = DB_URL + "/" + prop.getProperty("db.name", "");
                 DB_USER = prop.getProperty("db.user", "");
                 DB_PASSWORD = prop.getProperty("db.password", "");
+                
+                try {
+                    base_price = Integer.parseInt(prop.getProperty("eggsell.base_price", "10"));
+                    shiny_price = Integer.parseInt(prop.getProperty("eggsell.shiny_price", "100"));
+                    ha_price = Integer.parseInt(prop.getProperty("eggsell.ha_price", "50"));
+                    hundo_price = Integer.parseInt(prop.getProperty("eggsell.hundo_price", "20"));
+                    perf_price = Integer.parseInt(prop.getProperty("eggsell.perf_price", "10"));
+                    nature_price = Integer.parseInt(prop.getProperty("eggsell.nature_price", "10"));
+                }
+                catch (NumberFormatException e) {
+                    logger.error("Invalid number format in configuration file. Please check your config file.");
+                    e.printStackTrace();
+                }
+
+                sell_ha = Boolean.parseBoolean(prop.getProperty("eggsell.sell_ha", "true"));
+                sell_shiny = Boolean.parseBoolean(prop.getProperty("eggsell.sell_shiny", "true"));
+                discordbc = Boolean.parseBoolean(prop.getProperty("ex.discordbc", "false")); 
+                pokenear = Boolean.parseBoolean(prop.getProperty("ex.pokenear", "false"));
+                sellgui = Boolean.parseBoolean(prop.getProperty("ex.sellgui", "false"));
+                eggsell = Boolean.parseBoolean(prop.getProperty("ex.eggsell", "false"));
+                evofix = Boolean.parseBoolean(prop.getProperty("ex.evofix", "false"));
+
+
                 logger.info("General configuration loaded successfully.");
                 BannedItemsList.readBanList();
                 initializeConfig();
