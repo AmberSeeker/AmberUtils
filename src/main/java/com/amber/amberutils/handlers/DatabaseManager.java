@@ -1,4 +1,4 @@
-package com.amber.amberutils.sql_db;
+package com.amber.amberutils.handlers;
 
 import com.amber.amberutils.AmberUtils;
 import com.amber.amberutils.config.AmberUtilsConfig;
