@@ -58,6 +58,9 @@ repositories {
         name = 'sponge-repo'
         url = 'https://repo.spongepowered.org/maven'
     }
+    maven { 
+        url = "https://raw.github.com/FabioZumbi12/UltimateChat/mvn-repo/" 
+    }
     maven {
         url 'https://jitpack.io'
     }
@@ -90,6 +93,7 @@ dependencies {
     implementation name: 'DiscordUtils-1.12.2-0.1.0-all'
     compileOnly 'org.spongepowered:spongeapi:' + spongeVersion
     compileOnly 'pixelmon:Pixelmon-1.12.2-' + pixelmonVersion + '-server:' + pixelmonVersion
+    compileOnly 'br.net.fabiozumbi12.UltimateChat:UltimateChat-Sponge-7:1.9.1'
     compileOnly fileTree(dir: 'libs', include: ['*.jar'])
 }
 /*dependencies {
