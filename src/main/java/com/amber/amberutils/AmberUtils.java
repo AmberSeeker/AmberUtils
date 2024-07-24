@@ -1,15 +1,9 @@
 package com.amber.amberutils;
 
-import com.amber.amberutils.commands.MainCommand;
-import com.amber.amberutils.commands.EggSellCommand;
-import com.amber.amberutils.commands.EvoFixCommand;
-import com.amber.amberutils.commands.RadiusEntitiesCommand;
-import com.amber.amberutils.commands.SellGuiCommand;
+import com.amber.amberutils.commands.*;
+import com.amber.amberutils.listeners.*;
 import com.amber.amberutils.config.AmberUtilsConfig;
-import com.amber.amberutils.listeners.BannedItemsRemover;
-import com.amber.amberutils.listeners.DiscordBroadcasts;
-import com.amber.amberutils.listeners.NoSpaceNoBattle;
-import com.amber.amberutils.sql_db.DatabaseManager;
+import com.amber.amberutils.handlers.DatabaseManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +12,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.HashMap;
 import com.pixelmonmod.pixelmon.Pixelmon;
+
+import br.net.fabiozumbi12.UltimateChat.Sponge.API.SendChannelMessageEvent;
+
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.plugin.Plugin;
@@ -28,6 +25,8 @@ import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
+import org.spongepowered.api.event.message.MessageChannelEvent;
+import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.text.Text;
@@ -65,6 +64,7 @@ public class AmberUtils {
             Sponge.getCommandManager().register(this, RadiusEntitiesCommand.buildSpec(), "pokenear");
             Sponge.getCommandManager().register(this, SellGuiCommand.buildSpec(), "sellgui");
             Sponge.getCommandManager().register(this, EggSellCommand.buildSpec(), "eggsell");
+            Sponge.getCommandManager().register(this, ChatColorCommand.buildSpec(), "chatcolor");
         } catch (Exception e) {
             logger.error("An error occurred during initialization:", e);
         }
@@ -75,10 +75,21 @@ public class AmberUtils {
         instance = this;
         logger.info("AmberUtils is now active!");
         Pixelmon.EVENT_BUS.register(new NoSpaceNoBattle());
+        // if (Sponge.getPluginManager().getPlugin("discordutils").isPresent())
         // Pixelmon.EVENT_BUS.register(new DiscordBroadcasts()); For laters
         Sponge.getEventManager().registerListeners(this, new BannedItemsRemover());
+        
+        // Chatcolors stuff
+        ChatListener chatListener = new ChatListener();
+        if (Sponge.getPluginManager().getPlugin("ultimatechat").isPresent()) {
+            Sponge.getEventManager().registerListener(this, SendChannelMessageEvent.class, chatListener::uchatListener);
+        }
+        else {
+            Sponge.getEventManager().registerListener(this, MessageChannelEvent.Chat.class, chatListener::onPlayerChat);
+        }
     }
-// Make a mod present boolean method to check for discord utils
+
+
     @Listener
     public void reload(GameReloadEvent event) {
         CommandSource source = event.getCause().first(CommandSource.class).orElse(null);
