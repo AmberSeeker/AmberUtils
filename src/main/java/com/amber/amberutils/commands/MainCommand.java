@@ -26,8 +26,8 @@ public class MainCommand implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) {
-        src.sendMessage(Text.of(TextColors.GREEN, PluginInfo.NAME + "-" + PluginInfo.MC_VERSION + "-" + PluginInfo.VERSION));
-        src.sendMessage(Text.of(TextColors.GREEN, "Usage: /amberutils <subcommand|help|?>"));
+        src.sendMessage(Text.of(TextColors.GOLD, PluginInfo.NAME + "-" + PluginInfo.MC_VERSION + "-" + PluginInfo.VERSION));
+        src.sendMessage(Text.of(TextColors.GREEN, "Usage: ",TextColors.YELLOW, "/amberutils <subcommand|help|?>"));
         return CommandResult.success();
     }
 
