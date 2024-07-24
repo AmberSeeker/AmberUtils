@@ -13,8 +13,6 @@ import com.pixelmonmod.pixelmon.api.storage.PCStorage;
 import com.pixelmonmod.pixelmon.config.PixelmonConfig;
 import com.pixelmonmod.pixelmon.config.PixelmonItems;
 import com.pixelmonmod.pixelmon.entities.pixelmon.EntityPixelmon;
-import com.pixelmonmod.pixelmon.entities.pixelmon.stats.BaseStats;
-import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Gender;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -201,7 +199,6 @@ public class GeneralHelpers {
     
     public static ItemStack getPhoto(EntityPixelmon pokemon) {
         EnumSpecies species = pokemon.getSpecies();
-		BaseStats stats = species.getBaseStats();
 
 		NBTTagCompound nbt = new NBTTagCompound();
 		nbt.setShort("ndex", (short) species.getNationalPokedexInteger());

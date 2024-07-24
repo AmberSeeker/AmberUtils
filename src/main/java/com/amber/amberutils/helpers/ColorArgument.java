@@ -25,8 +25,15 @@ public class ColorArgument extends CommandElement {
 
     @Override
     public List<String> complete(CommandSource src, CommandArgs args, CommandContext context) {
+        String word = args.nextIfPresent().orElse("").toLowerCase();
+
+        if (word.isEmpty()) {
+            return ChatColorCommand.COLOR_MAP.keySet().stream().collect(Collectors.toList());
+        }
+
+        // Filter colors based on the prefix
         return ChatColorCommand.COLOR_MAP.keySet().stream()
-                .filter(color -> color.startsWith(args.nextIfPresent().orElse("")))
+                .filter(color -> color.startsWith(word))
                 .collect(Collectors.toList());
     }
 }

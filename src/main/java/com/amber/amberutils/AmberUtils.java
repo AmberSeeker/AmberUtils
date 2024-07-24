@@ -26,7 +26,6 @@ import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.event.message.MessageChannelEvent;
-import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.text.Text;
@@ -46,6 +45,10 @@ public class AmberUtils {
  
     public static AmberUtils getInstance() {
     return instance;
+    }
+
+    public Game getGame() {
+        return this.game;
     }
     
     public Logger getLogger() {

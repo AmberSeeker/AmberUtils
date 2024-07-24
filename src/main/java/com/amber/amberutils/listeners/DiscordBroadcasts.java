@@ -9,7 +9,6 @@ import com.pixelmonmod.pixelmon.api.events.spawning.SpawnEvent;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.EntityPixelmon;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
-import com.pixelmonmod.pixelmon.listener.EntityPlayerExtension;
 import com.pixelmonmod.pixelmon.client.gui.GuiResources;
 
 import org.spongepowered.api.Sponge;
