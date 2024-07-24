@@ -1,8 +1,8 @@
 package com.amber.amberutils.config;
 
 import com.amber.amberutils.AmberUtils;
-import com.amber.amberutils.sql_db.SQLConfig;
-import com.amber.amberutils.sql_db.SQLiteConfig;
+import com.amber.amberutils.handlers.SQLConfig;
+import com.amber.amberutils.handlers.SQLiteConfig;
 
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
@@ -41,6 +41,7 @@ public class AmberUtilsConfig {
     public static boolean sellgui = false;
     public static boolean eggsell = false;
     public static boolean evofix = false;
+    public static boolean chatcolor = false;
 
     public static void readGeneralConfig() {
         logger.info("Checking AmberUtilsConfig status...");
@@ -74,6 +75,7 @@ public class AmberUtilsConfig {
                     writer.write("ex.sellgui=false\n");
                     writer.write("ex.eggsell=false\n");
                     writer.write("ex.evofix=false\n");
+                    writer.write("ex.chatcolor=false\n");
                     writer.newLine();
                     writer.write("# Discord Details for DiscordUtils\n");
                     writer.write("discord.token=YOUR_DISCORD_BOT_TOKEN_HERE\n");
@@ -123,6 +125,7 @@ public class AmberUtilsConfig {
                 sellgui = Boolean.parseBoolean(prop.getProperty("ex.sellgui", "false"));
                 eggsell = Boolean.parseBoolean(prop.getProperty("ex.eggsell", "false"));
                 evofix = Boolean.parseBoolean(prop.getProperty("ex.evofix", "false"));
+                chatcolor = Boolean.parseBoolean(prop.getProperty("ex.chatcolor", "false"));
 
 
                 logger.info("General configuration loaded successfully.");
