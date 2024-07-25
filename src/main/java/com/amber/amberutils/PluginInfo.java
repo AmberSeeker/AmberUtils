@@ -9,3 +9,10 @@ public class PluginInfo {
 	public static final String DESCR = "Utilities for Pixelmon and Minecraft 1.12.2";
 	
 }
+/* Future Stuff:
+* - SQLify the chat color options for players
+* - Figure out how the new setmessage method works
+* - Economy Service
+* - Raid stuff
+* - Ppl with no color should be ""
+ */
