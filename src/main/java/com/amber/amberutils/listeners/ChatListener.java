@@ -36,11 +36,16 @@ public class ChatListener {
         }
 
         Player player = (Player) event.getSender();
-        String color = getColorCode(ChatColorManager.getInstance().getPlayerColor(player.getUniqueId()).orElse(TextColors.WHITE));
+        TextColor color = ChatColorManager.getInstance().getPlayerColor(player.getUniqueId()).orElse(TextColors.RESET);
+        String ncolor = "";
+        if (!color.equals(TextColors.RESET)) {
+            ncolor = getColorCode(color);
+        }
 
         String originalContent = event.getMessage().toPlain();
 
-        event.setMessage(color+originalContent);
+        System.out.println(ncolor);
+        event.setMessage(ncolor+originalContent);
     }
 
     private String getColorCode(TextColor color) {

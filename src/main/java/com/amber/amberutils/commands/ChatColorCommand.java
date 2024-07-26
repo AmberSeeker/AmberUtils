@@ -22,6 +22,7 @@ public class ChatColorCommand implements CommandExecutor {
     public static final Map<String, TextColor> COLOR_MAP = new HashMap<>();
 
     static {
+        COLOR_MAP.put("reset", TextColors.RESET);
         COLOR_MAP.put("green", TextColors.GREEN);
         COLOR_MAP.put("aqua", TextColors.AQUA);
         COLOR_MAP.put("red", TextColors.RED);
