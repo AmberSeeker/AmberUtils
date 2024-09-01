@@ -44,7 +44,7 @@ public class ChatListener {
 
         String originalContent = event.getMessage().toPlain();
 
-        System.out.println(ncolor);
+        // System.out.println(ncolor);
         event.setMessage(ncolor+originalContent);
     }
 
