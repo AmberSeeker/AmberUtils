@@ -139,5 +139,7 @@ public class NoSpaceNoBattle {
             storage.add(necroFuse);
             pokemon.setForm(0);
         }
+        if (pokemon.isLegendary())
+        pokemon.addSpecFlag("untradeable");
     }
 }

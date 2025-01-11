@@ -169,10 +169,8 @@ public class GeneralHelpers {
 
     public static boolean isHA(EntityPixelmon pixel) {
         Pokemon pokemon = (Pokemon)pixel.getPokemonData();
-        if (pokemon.getSpecies().getBaseStats().getHiddenAbility().isPresent()) {
-            if (pokemon.getAbilityName().equalsIgnoreCase(pokemon.getSpecies().getBaseStats().getHiddenAbility().get().getName())) {
-                return true;
-            }
+        if (isHA(pokemon)) {
+            return true;
         }
         return false;
     }
