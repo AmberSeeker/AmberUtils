@@ -83,6 +83,9 @@ public class NoSpaceNoBattle {
     @SubscribeEvent
     public void onRaidJoin(JoinRaidEvent e) {
         EntityPlayerMP player = (EntityPlayerMP)e.getPlayer();
+        // if (e.getRaid().getPlayers().size() >= 1) {
+        //     CommandChatHandler.sendFormattedChat(player, TextFormatting.RED, "Only one player can join this raid!");
+        // }
         if (GeneralHelpers.playerCheck(player)) {
             e.setCanceled(true);
             CommandChatHandler.sendFormattedChat(player, TextFormatting.RED, "You can't join the raid as you have no space in your Party or PC!");
@@ -103,6 +106,10 @@ public class NoSpaceNoBattle {
         String pname = pokemon.getSpecies().name();
         int pform = pokemon.getForm();
         PlayerPartyStorage storage = Pixelmon.storageManager.getParty(e.player);
+        
+        // if (pokemon.isLegendary()) {
+        //     pokemon.addSpecFlag("untradeable");
+        // }
         
         //Kyurem Stuff
         if (pname.equalsIgnoreCase("Kyurem") && pform != 0)
@@ -139,7 +146,5 @@ public class NoSpaceNoBattle {
             storage.add(necroFuse);
             pokemon.setForm(0);
         }
-        if (pokemon.isLegendary())
-        pokemon.addSpecFlag("untradeable");
     }
 }
