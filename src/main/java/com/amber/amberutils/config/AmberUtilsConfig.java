@@ -34,6 +34,7 @@ public class AmberUtilsConfig {
     public static int nature_price = 10;
     public static boolean sell_ha = true;
     public static boolean sell_shiny = true;
+    public static int boxclear_price = 100;
 
     // Experimental
     public static boolean discordbc = false;
@@ -42,6 +43,7 @@ public class AmberUtilsConfig {
     public static boolean eggsell = false;
     public static boolean evofix = false;
     public static boolean chatcolor = false;
+    public static boolean boxclear = false;
 
     public static void readGeneralConfig() {
         logger.info("Checking AmberUtilsConfig status...");
@@ -76,6 +78,7 @@ public class AmberUtilsConfig {
                     writer.write("ex.eggsell=false\n");
                     writer.write("ex.evofix=false\n");
                     writer.write("ex.chatcolor=false\n");
+                    writer.write("ex.boxclear=false\n");
                     writer.newLine();
                     writer.write("# Discord Details for DiscordUtils\n");
                     writer.write("discord.token=YOUR_DISCORD_BOT_TOKEN_HERE\n");
@@ -91,6 +94,9 @@ public class AmberUtilsConfig {
                     writer.write("eggsell.nature_price=10\n");
                     writer.write("eggsell.sell_ha=true\n");
                     writer.write("eggsell.sell_shiny=true\n");
+                    writer.newLine();
+                    writer.write("# BoxClear Stuff\n");
+                    writer.write("boxclear.price=100\n");
                 }
             }
             
@@ -112,6 +118,7 @@ public class AmberUtilsConfig {
                     hundo_price = Integer.parseInt(prop.getProperty("eggsell.hundo_price", "20"));
                     perf_price = Integer.parseInt(prop.getProperty("eggsell.perf_price", "10"));
                     nature_price = Integer.parseInt(prop.getProperty("eggsell.nature_price", "10"));
+                    boxclear_price = Integer.parseInt(prop.getProperty("boxclear.price", "100"));
                 }
                 catch (NumberFormatException e) {
                     logger.error("Invalid number format in configuration file. Please check your config file.");
@@ -126,6 +133,7 @@ public class AmberUtilsConfig {
                 eggsell = Boolean.parseBoolean(prop.getProperty("ex.eggsell", "false"));
                 evofix = Boolean.parseBoolean(prop.getProperty("ex.evofix", "false"));
                 chatcolor = Boolean.parseBoolean(prop.getProperty("ex.chatcolor", "false"));
+                boxclear = Boolean.parseBoolean(prop.getProperty("ex.boxclear", "false"));
 
 
                 logger.info("General configuration loaded successfully.");

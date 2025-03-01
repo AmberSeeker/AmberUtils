@@ -18,6 +18,7 @@ import br.net.fabiozumbi12.UltimateChat.Sponge.API.SendChannelMessageEvent;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.entity.living.player.Player;
@@ -31,7 +32,8 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
-@Plugin(id = PluginInfo.ID, name = PluginInfo.NAME, version = PluginInfo.VERSION, description = PluginInfo.DESCR, dependencies = {@Dependency(id = "pixelmon")})
+@Plugin(id = PluginInfo.ID, name = PluginInfo.NAME, version = PluginInfo.VERSION, description = PluginInfo.DESCR, dependencies = {
+        @Dependency(id = "pixelmon") })
 public class AmberUtils {
     @Inject
     private Game game;
@@ -41,38 +43,49 @@ public class AmberUtils {
 
     public static final Map<UUID, Boolean> noSpaceToggles = new HashMap<>();
 
+    public EconomyService econService = null;
+
     private static AmberUtils instance;
- 
+
     public static AmberUtils getInstance() {
-    return instance;
+        return instance;
     }
 
     public Game getGame() {
         return this.game;
     }
-    
+
     public Logger getLogger() {
-    return logger;
+        return logger;
+    }
+
+    public Map<UUID, Boolean> getNoSpaceToggle() {
+        return noSpaceToggles;
+    }
+
+    public EconomyService getEconomy() {
+        return this.econService;
     }
 
     @Listener
     public void onInitialization(GameInitializationEvent event) {
-        logger.info("Starting up AmberUtils v" + PluginInfo.VERSION+"...");
+        logger.info("Starting up AmberUtils v" + PluginInfo.VERSION + "...");
         try {
             AmberUtilsConfig.readGeneralConfig();
             DatabaseManager.loadPlayerData(Sponge.getServer().getConsole());
             CommandSpec uCommandSpec = MainCommand.buildSpec();
             Sponge.getCommandManager().register(this, uCommandSpec, "amberutils", "amu");
-            Sponge.getCommandManager().register(this, EvoFixCommand.buildSpec(), "evofix","evolutionfix");
+            Sponge.getCommandManager().register(this, EvoFixCommand.buildSpec(), "evofix", "evolutionfix");
             Sponge.getCommandManager().register(this, RadiusEntitiesCommand.buildSpec(), "pokenear");
             Sponge.getCommandManager().register(this, SellGuiCommand.buildSpec(), "sellgui");
             Sponge.getCommandManager().register(this, EggSellCommand.buildSpec(), "eggsell");
             Sponge.getCommandManager().register(this, ChatColorCommand.buildSpec(), "chatcolor");
+            Sponge.getCommandManager().register(this, BoxClearCommand.buildSpec(this), "boxclear");
         } catch (Exception e) {
             logger.error("An error occurred during initialization:", e);
         }
     }
-    
+
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
         instance = this;
@@ -81,17 +94,23 @@ public class AmberUtils {
         // if (Sponge.getPluginManager().getPlugin("discordutils").isPresent())
         // Pixelmon.EVENT_BUS.register(new DiscordBroadcasts()); For laters
         Sponge.getEventManager().registerListeners(this, new BannedItemsRemover());
+
+        // Economy Service
+        econService = Sponge.getServiceManager().provide(EconomyService.class).isPresent()
+                ? Sponge.getServiceManager().provide(EconomyService.class).get()
+                : null;
+        if (econService == null) {
+            logger.error("Economy Service not found!");
+        }
         
         // Chatcolors stuff
         ChatListener chatListener = new ChatListener();
         if (Sponge.getPluginManager().getPlugin("ultimatechat").isPresent()) {
             Sponge.getEventManager().registerListener(this, SendChannelMessageEvent.class, chatListener::uchatListener);
-        }
-        else {
+        } else {
             Sponge.getEventManager().registerListener(this, MessageChannelEvent.Chat.class, chatListener::onPlayerChat);
         }
     }
-
 
     @Listener
     public void reload(GameReloadEvent event) {

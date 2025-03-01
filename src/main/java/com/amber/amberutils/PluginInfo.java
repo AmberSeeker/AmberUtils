@@ -17,4 +17,5 @@ public class PluginInfo {
 * - Ppl with no color should be ""
 * - Untradeable waterdude leggys
 * - Command to figure out ranch owner
+* - Box clear
  */
