@@ -4,6 +4,9 @@ import com.amber.amberutils.commands.*;
 import com.amber.amberutils.listeners.*;
 import com.amber.amberutils.config.AmberUtilsConfig;
 import com.amber.amberutils.handlers.DatabaseManager;
+import com.amber.amberutils.helpers.GeneralHelpers;
+import com.amber.amberutils.helpers.ItemNameHelper;
+import com.amber.amberutils.helpers.NameHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,13 +62,7 @@ public class AmberUtils {
         return logger;
     }
 
-    public Map<UUID, Boolean> getNoSpaceToggle() {
-        return noSpaceToggles;
-    }
-
-    public EconomyService getEconomy() {
-        return this.econService;
-    }
+    RanchOwnerCommand ranchOwnerCmd = new RanchOwnerCommand(this);
 
     @Listener
     public void onInitialization(GameInitializationEvent event) {
@@ -78,9 +75,10 @@ public class AmberUtils {
             Sponge.getCommandManager().register(this, EvoFixCommand.buildSpec(), "evofix", "evolutionfix");
             Sponge.getCommandManager().register(this, RadiusEntitiesCommand.buildSpec(), "pokenear");
             Sponge.getCommandManager().register(this, SellGuiCommand.buildSpec(), "sellgui");
-            Sponge.getCommandManager().register(this, EggSellCommand.buildSpec(), "eggsell");
+            Sponge.getCommandManager().register(this, EggSellCommand.buildSpec(this), "eggsell");
             Sponge.getCommandManager().register(this, ChatColorCommand.buildSpec(), "chatcolor");
             Sponge.getCommandManager().register(this, BoxClearCommand.buildSpec(this), "boxclear");
+            Sponge.getCommandManager().register(this, RanchOwnerCommand.buildSpec(ranchOwnerCmd), "ranchowner");
         } catch (Exception e) {
             logger.error("An error occurred during initialization:", e);
         }
@@ -94,6 +92,7 @@ public class AmberUtils {
         // if (Sponge.getPluginManager().getPlugin("discordutils").isPresent())
         // Pixelmon.EVENT_BUS.register(new DiscordBroadcasts()); For laters
         Sponge.getEventManager().registerListeners(this, new BannedItemsRemover());
+        Sponge.getEventManager().registerListeners(this, ranchOwnerCmd);
 
         // Economy Service
         econService = Sponge.getServiceManager().provide(EconomyService.class).isPresent()
@@ -102,7 +101,7 @@ public class AmberUtils {
         if (econService == null) {
             logger.error("Economy Service not found!");
         }
-        
+
         // Chatcolors stuff
         ChatListener chatListener = new ChatListener();
         if (Sponge.getPluginManager().getPlugin("ultimatechat").isPresent()) {
@@ -138,5 +137,25 @@ public class AmberUtils {
         } catch (Exception e) {
             logger.error("An error occurred during server stop:", e);
         }
+    }
+
+    public Map<UUID, Boolean> getNoSpaceToggle() {
+        return noSpaceToggles;
+    }
+
+    public EconomyService getEconomy() {
+        return this.econService;
+    }
+
+    public GeneralHelpers getGeneralHelpers() {
+        return new GeneralHelpers();
+    }
+
+    public NameHelper getNameHelper() {
+        return new NameHelper();
+    }
+
+    public ItemNameHelper getItemNameHelper() {
+        return new ItemNameHelper();
     }
 }

@@ -35,8 +35,7 @@ public class BoxClearCommand implements CommandExecutor {
 
     private AmberUtils plugin;
 
-    private Map<UUID, Integer> pending_boxclears = new HashMap<>();// Map of player UUIDs to the number of boxes they
-                                                                   // have pending to clear
+    private Map<UUID, Integer> pending_boxclears = new HashMap<>();
 
     public BoxClearCommand(AmberUtils plugin) {
         this.plugin = plugin;
@@ -134,7 +133,7 @@ public class BoxClearCommand implements CommandExecutor {
         for (int i = 0; i < 30; i++) {
             storage.set(i, null);
         }
-        // send msg to src
+
         src.sendMessage(Text.of(TextColors.GREEN, "Box " + box + " has been cleared!"));
         pending_boxclears.remove(playerID);
         return CommandResult.success();
